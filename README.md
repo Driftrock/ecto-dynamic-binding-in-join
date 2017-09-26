@@ -17,7 +17,7 @@ join table where `on:` is being added.
 
 Example:
 
-```
+```elixir
 query = from c in Customer,
   where: c.name == "Test Customer"
 
@@ -44,7 +44,7 @@ result = App.Repo.all(query)
 
 ## Run
 
-```
+```sh
 mix deps.get
 mix ecto.create
 mix ecto.migrate
@@ -53,7 +53,7 @@ mix test
 
 What happens:
 
-```
+```elixir
      ** (Ecto.QueryError) deps/ecto/lib/ecto/association.ex:509: field `location` in `join` does not exist in schema App.Customer in query:
 
      from c in App.Customer,
@@ -71,7 +71,7 @@ Notice that the first `join: e0` has `on:` clause with `c.name`, and the second
 What should happen:
 
 The query should look like this:
-```
+```elixir
      from c in App.Customer,
        join: e0 in App.Event,
        on: e0.customer_id == c.id and (e0.name == ^"Event 1" and e0.location == ^"Location 1"),
