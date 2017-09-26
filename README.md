@@ -28,14 +28,14 @@ join_on = dynamic([c, ..., ev], ev.name == "Event 1" and ev.location == "Locatio
 # append the inner join to the query, with extra ON condition from dynamic above
 query = from c in query,
   inner_join: ev in assoc(c, :events),
-  on: ^join_on # the `ev` biding from dynamic will be here expanded as `c`
+  on: ^join_on # the `ev` binding from dynamic will be here expanded as `c`
 
 # add one more join. this time `ev` here should be calculated as `e2`
 join_on = dynamic([c, ..., ev], ev.name == "Event 2" and ev.location == "Location 2")
 
 query = from c in query,
   inner_join: ev in assoc(c, :events),
-  on: ^join_on # and here the `ev` biding will be here expanded as `e0` - ie `ev` from the previous inner_join
+  on: ^join_on # and here the `ev` binding will be here expanded as `e0` - ie `ev` from the previous inner_join
 
 # Expect the query be successfull, with each JOIN's ON condition
 # reference its JOIN binding
